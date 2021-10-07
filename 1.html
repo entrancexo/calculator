@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <meta charset="utf-8">
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          <link rel="stylesheet" href="css/style.css"> 
+          <title>HTML калькулятор</title>
+               <script src="1.js">
+     </script>
+     </head>
+     <body>
+ <div class="calculator card  container">
+
+    <input type="text" id="1" class="calculator-screen z-depth-1" value="" disabled />
+
+    <div class="calculator-keys">
+
+      <button type="button"  class="btn btn-light waves-effect" onclick="addNum(1)">1</button>
+      <button type="button"  class="btn btn-light waves-effect" OnClick="addNum(2)">2</button>
+      <button type="button" class="btn btn-light waves-effect" OnClick="addNum(3)">3</button>
+      <button type="button" class="operator btn btn-info" value="+" OnClick="pressBut('+')" >+</button>
+      
+      <button type="button"  class="btn btn-light waves-effect" OnClick="addNum(4)">4</button>
+      <button type="button"  class="btn btn-light waves-effect" OnClick="addNum(5)">5</button>
+      <button type="button"  class="btn btn-light waves-effect" OnClick="addNum(6)">6</button>
+      <button type="button" class="operator btn btn-info" value="-" OnClick="pressBut('-')">-</button>
+
+      <button type="button"  class="btn btn-light waves-effect" OnClick="addNum(7)">7</button>
+      <button type="button"  class="btn btn-light waves-effect" OnClick="addNum(8)">8</button>
+      <button type="button"  class="btn btn-light waves-effect" OnClick="addNum(9)">9</button>
+      <button type="button" class="operator btn btn-info" value="*"OnClick="pressBut('*')">*</button>
+
+      <button type="button" class="all-clear function btn btn-danger btn-sm" value="c" OnClick="pressBut('c')">AC</button>
+      <button type="button"  class="btn btn-light waves-effect " OnClick="addNum(0)">0</button>
+      <button type="button" class="operator btn btn-info" value="=" OnClick="pressBut('=')">=</button>
+      <button type="button" class="operator btn btn-info" value="/" OnClick="pressBut('/')">/</button>
+
+    </div>
+  </div>
+     </body>
+</html>
