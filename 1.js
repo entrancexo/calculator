@@ -70,7 +70,6 @@ function resetCalculator() {
 }
 
 function updateDisplay() {
-  const display = document.getElementById('1');
 
   document.getElementById("1").value = calculator.displayValue;
 }
