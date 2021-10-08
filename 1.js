@@ -1,89 +1,78 @@
-var arg1 = "";
-var arg2 = "";
-var op="";
-var op2 = "";
-var s;
-function addNum(num){
-	if (s){
-		document.getElementById("1").value += num;
-	}
-	else{
-		document.getElementById("1").value = "";
-		document.getElementById("1").value += num;
-		s = true;
-	}
-
-}
-
 document.addEventListener('keydown', function(event) {
 	var key = parseInt(event.key);
 	if (!isNaN(key)){
 		addNum(key);	
 	}
-		
-
 });
-function calcul(but){
-	switch (but) {
-		case '*':
-			result = arg1 * arg2;
-	
-		break
-		case '+':
-			result = Number(arg1) + Number(arg2);
-	
-		break
-		case '-':
-			result = arg1 - arg2;
-	
-		break
-		case '/':
-			result = arg1 / arg2;
-	
-		break
-	}
-	return result;
-}
-function pressBut(but){
-	var result;
-	s = false;
-	console.log(op);
-	console.log(arg2);
-	if (arg1 != ""){
-		switch(but){
-			case '=':
-			console.log(but);
-				if (arg2 == ""){
-						arg2 = document.getElementById("1").value;
-						console.log("второй пустрой");
-				}
-				result = calcul(op);
-				document.getElementById("1").value = result;
-				arg1 = "";
-				arg2 = "";
-			break
-			case 'c':
-				result ="";
-				arg1 = "";
-				arg2 = "";
-				document.getElementById("1").value = "";
-			break
-			default:
-				arg2 = document.getElementById("1").value;
-				result = calcul(op);
-				document.getElementById("1").value = result;
-				arg1 = document.getElementById("1").value;
-				result = "";
-				//arg1 = "";
-				arg2 = "";
-				op = but;
-			break
-		}
-	
-	}
+		
+const calculator = {
+  displayValue: '0',
+  firstOperand: null,
+  waitingForSecondOperand: false,
+  operator: null,
+};
 
-	else{
-		arg1 = document.getElementById("1").value;
-		op = but;
-	} 
+function addNum(digit) {
+  const { displayValue, waitingForSecondOperand } = calculator;
+
+  if (waitingForSecondOperand === true) {
+    calculator.displayValue = digit;
+    calculator.waitingForSecondOperand = false;
+  } else {
+    calculator.displayValue = displayValue === '0' ? digit :  String(displayValue) + digit;
+  }
+  updateDisplay();
 }
+
+
+function pressBut(nextOperator) {
+  const { firstOperand, displayValue, operator } = calculator
+  const inputValue = parseFloat(displayValue);
+
+  if (operator && calculator.waitingForSecondOperand)  {
+    calculator.operator = nextOperator;
+    return;
+  }
+
+  if (firstOperand == null) {
+    calculator.firstOperand = inputValue;
+  } else if (operator) {
+    const currentValue = firstOperand || 0;
+    const result = performCalculation[operator](currentValue, inputValue);
+
+    calculator.displayValue = String(result);
+    calculator.firstOperand = result;
+  }
+
+  calculator.waitingForSecondOperand = true;
+  calculator.operator = nextOperator;
+  updateDisplay();
+}
+
+const performCalculation = {
+  '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+
+  '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
+
+  '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+
+  '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+
+  '=': (firstOperand, secondOperand) => secondOperand
+};
+
+function resetCalculator() {
+  calculator.displayValue = '0';
+  calculator.firstOperand = null;
+  calculator.waitingForSecondOperand = false;
+  calculator.operator = null;
+  updateDisplay();
+}
+
+function updateDisplay() {
+  const display = document.getElementById('1');
+
+  document.getElementById("1").value = calculator.displayValue;
+}
+
+updateDisplay();
