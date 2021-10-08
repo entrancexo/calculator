@@ -47,8 +47,6 @@ function calcul(but){
 function pressBut(but){
 	var result;
 	s = false;
-	console.log(op);
-	console.log(arg2);
 	if (arg1 != ""){
 		switch(but){
 			case '=':
