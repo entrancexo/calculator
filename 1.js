@@ -50,10 +50,8 @@ function pressBut(but){
 	if (arg1 != ""){
 		switch(but){
 			case '=':
-			console.log(but);
 				if (arg2 == ""){
 						arg2 = document.getElementById("1").value;
-						console.log("второй пустрой");
 				}
 				result = calcul(op);
 				document.getElementById("1").value = result;
