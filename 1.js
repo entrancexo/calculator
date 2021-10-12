@@ -1,85 +1,119 @@
-var arg1 = "";
-var arg2 = "";
-var op="";
-var op2 = "";
-var s;
-function addNum(num){
-	if (s){
-		document.getElementById("1").value += num;
-	}
-	else{
-		document.getElementById("1").value = "";
-		document.getElementById("1").value += num;
-		s = true;
-	}
-
-}
-
 document.addEventListener('keydown', function(event) {
 	var key = parseInt(event.key);
 	if (!isNaN(key)){
 		addNum(key);	
 	}
-		
-
 });
-function calcul(but){
-	switch (but) {
-		case '*':
-			result = arg1 * arg2;
-	
-		break
-		case '+':
-			result = Number(arg1) + Number(arg2);
-	
-		break
-		case '-':
-			result = arg1 - arg2;
-	
-		break
-		case '/':
-			result = arg1 / arg2;
-	
-		break
-	}
-	return result;
-}
-function pressBut(but){
-	var result;
-	s = false;
-	if (arg1 != ""){
-		switch(but){
-			case '=':
-				if (arg2 == ""){
-						arg2 = document.getElementById("1").value;
-				}
-				result = calcul(op);
-				document.getElementById("1").value = result;
-				arg1 = "";
-				arg2 = "";
-			break
-			case 'c':
-				result ="";
-				arg1 = "";
-				arg2 = "";
-				document.getElementById("1").value = "";
-			break
-			default:
-				arg2 = document.getElementById("1").value;
-				result = calcul(op);
-				document.getElementById("1").value = result;
-				arg1 = document.getElementById("1").value;
-				result = "";
-				//arg1 = "";
-				arg2 = "";
-				op = but;
-			break
-		}
-	
-	}
 
-	else{
-		arg1 = document.getElementById("1").value;
-		op = but;
-	} 
+const but = "123+456-789*c0=/";
+const classNum = "btn btn-light waves-effect";
+const classOP = "operator btn btn-info";
+const classAC = "all-clear function btn btn-danger btn-sm";
+
+		
+const calculator = {
+  displayValue: '0',
+  firstOperand: null,
+  waitingForSecondOperand: false,
+  operator: null,
+};
+
+function createButt(){
+    for (var i = 0; i < but.length; i++) {
+      var buttClass;
+      if (!isNaN(parseInt(but[i]))){
+          buttClass = classNum;
+      }
+      else {
+        if(but[i] == "c"){
+          buttClass = classAC;
+        }
+        else{
+          buttClass = classOP;
+        }
+      }
+    document.getElementById("2").innerHTML +="<button type=\"button\"  class=\"" + buttClass 
+              + "\"onclick=\"checkClick(this.innerHTML)\">" +but[i]+ "</button>";
 }
+}
+function checkClick(butt){
+    if (!isNaN(parseInt(butt))){
+        addNum(butt);
+    }
+    else {
+      if (butt == "c"){
+          resetCalculator();
+      }
+      else{
+        pressBut(butt);
+      }
+      
+    }
+
+}
+function addNum(digit) {
+  const { displayValue, waitingForSecondOperand } = calculator;
+
+  if (waitingForSecondOperand === true) {
+    calculator.displayValue = digit;
+    calculator.waitingForSecondOperand = false;
+  } else {
+    calculator.displayValue = displayValue === '0' ? digit :  String(displayValue) + digit;
+  }
+  updateDisplay();
+}
+
+
+function pressBut(nextOperator) {
+  const { firstOperand, displayValue, operator } = calculator
+  const inputValue = parseFloat(displayValue);
+
+  if (operator && calculator.waitingForSecondOperand)  {
+    calculator.operator = nextOperator;
+    return;
+  }
+
+  if (firstOperand == null) {
+    calculator.firstOperand = inputValue;
+  } else if (operator) {
+    const currentValue = firstOperand || 0;
+    const result = performCalculation[operator](currentValue, inputValue);
+
+    calculator.displayValue = String(result);
+    calculator.firstOperand = result;
+  }
+
+  calculator.waitingForSecondOperand = true;
+  calculator.operator = nextOperator;
+  updateDisplay();
+}
+
+const performCalculation = {
+  '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+
+  '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
+
+  '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+
+  '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+
+  '=': (firstOperand, secondOperand) => secondOperand
+};
+
+function resetCalculator() {
+  calculator.displayValue = '0';
+  calculator.firstOperand = null;
+  calculator.waitingForSecondOperand = false;
+  calculator.operator = null;
+  updateDisplay();
+}
+
+function updateDisplay() {
+  const display = document.getElementById('1');
+
+  document.getElementById("1").value = calculator.displayValue;
+}
+
+updateDisplay();
+createButt();
+
