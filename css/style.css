@@ -1,49 +1,6 @@
-/* html {
-      font-size: 62.5%;
-      box-sizing: border-box;
-    }
-
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: inherit;
-    }
-*/
-/*body {
-  background:antiquewhite;
-  background: #bcbcbc;
-    padding: 8px;
-    margin:16px 12px 10px 16px;
-    text-align: center;
-    font-family: 'Share Tech Mono', monospace;
-    border-radius:8px;
-}*/
-  /* .calculator {
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 400px;
-      flex: 1;
-    margin: 8px;
-    }*/
-/*.calculator {  
-  height: 100vp;
-  width: 100vw;
-  display: grid;
-  place-items: center;
-  position: relative;
-  padding: 20px;
-  border-radius: 10px;
-
-}*/
-    .calculator-screen {
+.calculator-screen {
       width: 100%;
-      height: auto;
+      height: 120px;
       width: auto;
       position: relative;
       border: none;
@@ -53,7 +10,7 @@
       padding-right: 20px;
       padding-left: 10px;
       font-size: 4rem;
-      
+
     }
 
     button {
@@ -78,3 +35,43 @@
       padding: 20px;
       position: relative;
     }
+
+  /* Desktops and laptops ----------- /
+
+/ iPads (portrait) ----------- */
+@media only screen 
+and (min-device-width : 768px) {
+  .calculator {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      flex: 1;
+    margin: 8px;
+    }
+        button {
+        height: 60px;
+      width: auto;
+      position: relative;
+      font-size: 2rem!important;
+ 
+    }
+        .calculator-screen {
+      width: 100%;
+      height: auto;
+      width: auto;
+      position: relative;
+      border: none;
+      background-color: #252525;
+      color: #fff;
+      text-align: right;
+      padding-right: 20px;
+      padding-left: 10px;
+      font-size: 4rem;
+
+    }
+}
+}
